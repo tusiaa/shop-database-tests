@@ -1,0 +1,29 @@
+name: CI - Tests
+
+on:
+  push:
+      branches:
+        - main
+  pull_request:
+      branches:
+        - main
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Python set up 
+        uses: actions/setup-python@v2
+        with:
+            python-version: '3.x'
+            cache: 'pip'
+            
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+        
+      - name: Run tests for grade
+        run: nose2 
+
